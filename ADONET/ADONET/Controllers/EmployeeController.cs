@@ -16,5 +16,17 @@ namespace ADONET.Controllers
             return Ok(employees);
         }
 
+        [HttpGet("TotalEmployees")]
+        public int TotalEmployees()
+        {
+            return EmployeeService.TotalEmployees();
+        }
+
+        [HttpPost("AddNewEmployee")]
+        public string AddNewEmployee([FromBody] EmployeeDTO employee)
+        {
+            return EmployeeService.AddNewEmployee(employee);
+        }
+
     }
 }

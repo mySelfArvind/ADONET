@@ -48,5 +48,42 @@ namespace ADONET.Repositories
             connection.Close();
             return employees;
         }
+
+        /// <summary>
+        /// Demonstrating the use-case of ExecuteScalar method [fetching the count of total users]
+        /// </summary>
+        /// <returns></returns>
+        public int TotalEmployees()
+        {
+            using (SqlConnection connection = GetConnection())
+            {
+
+                string Query = "select count(EmployeeID) from Employees";
+                SqlCommand cmd = new SqlCommand(Query, connection);
+                connection.Open();
+                int TotalEmployees = Convert.ToInt32(cmd.ExecuteScalar());
+                return TotalEmployees;
+            }
+        }
+
+        /// <summary>
+        /// Demonstrating the use-case of ExecuteNonQuery method [Adding new users]
+        /// </summary>
+        /// <param name="employee"></param>
+        /// <returns></returns>
+        public string AddNewEmployee(EmployeeDTO employee)
+        {
+            string Message = "Something Went Wrong";
+            using(SqlConnection connection = GetConnection())
+            {
+                string Query = $"INSERT INTO Employees(EmployeeId,FirstName,LastName,Age,Position,Department,HireDate,Salary) VALUES({employee.EmployeeId},'{employee.FirstName}','{employee.LastName}',{employee.Age},'{employee.Position}','{employee.Department}','{employee.HireDate.ToString("yyyy-MM-dd")}',{employee.Salary})";
+                SqlCommand cmd = new SqlCommand (Query, connection);
+                connection.Open();
+                int result = cmd.ExecuteNonQuery();
+                if (result > 0)
+                    Message = "Employee Added Successfully";
+                return Message;
+            }
+        }
     }
 }

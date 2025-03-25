@@ -10,5 +10,15 @@ namespace ADONET.Services
         {
             return EmployeeRepository.GetAllEmployees();
         }
+
+        public int TotalEmployees()
+        {
+            return EmployeeRepository.TotalEmployees();
+        }
+
+        public string AddNewEmployee(EmployeeDTO employee)
+        {
+            return EmployeeRepository.AddNewEmployee(employee);
+        }
     }
 }

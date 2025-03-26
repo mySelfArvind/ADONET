@@ -28,5 +28,17 @@ namespace ADONET.Controllers
             return EmployeeService.AddNewEmployee(employee);
         }
 
+        [HttpPut("UpdateEmployee{id:int}")]
+        public string UpdateEmployee([FromRoute] int id,[FromBody] EmployeeDTO employee)
+        {
+            return EmployeeService.UpdateEmployee(id,employee);
+        }
+
+        [HttpDelete("DeleteEmployee{id:int}")]
+        public string DeleteEmployee([FromRoute] int id)
+        {
+            return EmployeeService.DeleteEmployee(id);
+        }
+
     }
 }

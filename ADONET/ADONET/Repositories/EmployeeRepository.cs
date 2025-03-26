@@ -74,14 +74,50 @@ namespace ADONET.Repositories
         public string AddNewEmployee(EmployeeDTO employee)
         {
             string Message = "Something Went Wrong";
-            using(SqlConnection connection = GetConnection())
+            using (SqlConnection connection = GetConnection())
             {
                 string Query = $"INSERT INTO Employees(EmployeeId,FirstName,LastName,Age,Position,Department,HireDate,Salary) VALUES({employee.EmployeeId},'{employee.FirstName}','{employee.LastName}',{employee.Age},'{employee.Position}','{employee.Department}','{employee.HireDate.ToString("yyyy-MM-dd")}',{employee.Salary})";
-                SqlCommand cmd = new SqlCommand (Query, connection);
+                SqlCommand cmd = new SqlCommand(Query, connection);
                 connection.Open();
                 int result = cmd.ExecuteNonQuery();
                 if (result > 0)
                     Message = "Employee Added Successfully";
+                return Message;
+            }
+        }
+
+        /// <summary>
+        /// Updating employee for the given EmployeeID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="employee"></param>
+        /// <returns></returns>
+        public string UpdateEmployee(int id, EmployeeDTO employee)
+        {
+            string Message = "Something Went Wrong";
+            using (SqlConnection connection = GetConnection())
+            {
+                string Query = $"UPDATE Employees SET Age={employee.Age}, Position='{employee.Position}', Department='{employee.Department}' WHERE EmployeeID={id}";
+                SqlCommand cmd = new SqlCommand(Query, connection);
+                connection.Open();
+                int RowsAffected = cmd.ExecuteNonQuery();
+                if (RowsAffected > 0)
+                    Message = "Employee Updated Successfully";
+                return Message;
+            }
+        }
+
+        public string DeleteEmployee(int id)
+        {
+            using (SqlConnection connection = GetConnection())
+            {
+                string Message = "Something Went Wrong";
+                string Query = $"DELETE FROM Employees WHERE EmployeeID={id}";
+                SqlCommand cmd = new SqlCommand(Query, connection);
+                connection.Open();
+                int RowsAffected = cmd.ExecuteNonQuery();
+                if (RowsAffected > 0)
+                    Message = "Employee Deleted Successfully";
                 return Message;
             }
         }

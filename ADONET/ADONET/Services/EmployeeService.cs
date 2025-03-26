@@ -20,5 +20,14 @@ namespace ADONET.Services
         {
             return EmployeeRepository.AddNewEmployee(employee);
         }
+        public string UpdateEmployee(int id,EmployeeDTO employee)
+        {
+            return EmployeeRepository.UpdateEmployee(id,employee);
+        }
+
+        public string DeleteEmployee(int id)
+        {
+            return EmployeeRepository.DeleteEmployee(id);
+        }
     }
 }

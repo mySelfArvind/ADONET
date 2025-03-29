@@ -15,5 +15,15 @@ namespace ADONET.Services
         {
             return _productRepository.SearchProductWithName(productName);
         }
+
+        public List<ProductDTO> SearchProductWithNameUsingParameterizedQuery(string productName)
+        {
+            return _productRepository.SearchProductWithNameUsingParameterizedQuery(productName);
+        }
+
+        public List<ProductDTO> SearchProductWithNameUsingStoredProcedure(string productName)
+        {
+            return _productRepository.SearchProductWithNameUsingStoredProcedure(productName);
+        }
     }
 }

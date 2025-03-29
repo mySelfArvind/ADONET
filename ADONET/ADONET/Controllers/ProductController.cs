@@ -14,9 +14,21 @@ namespace ADONET.Controllers
             _productService = new ProductService();
         }
         [HttpGet("SearchProductWithName")]
-        public async Task<IActionResult> SearchProductWithName([FromQuery] string productName)
+        public IActionResult SearchProductWithName([FromQuery] string productName)
         {
             return Ok(_productService.SearchProductWithName(productName));
+        }
+
+        [HttpGet("SearchProductWithNameUsingParameterizedQuery")]
+        public IActionResult SearchProductWithNameUsingParameterizedQuery([FromQuery] string productName)
+        {
+            return Ok(_productService.SearchProductWithNameUsingParameterizedQuery(productName));
+        }
+
+        [HttpGet("SearchProductWithNameUsingStoredProcedure")]
+        public IActionResult SearchProductWithNameUsingStoredProcedure([FromQuery] string productName)
+        {
+            return Ok(_productService.SearchProductWithNameUsingStoredProcedure(productName));
         }
     }
 }

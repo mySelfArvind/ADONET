@@ -1,5 +1,6 @@
 ﻿using ADONET.DTO;
 using Microsoft.Data.SqlClient;
+using ADONET.SqlHelpers;
 namespace ADONET.Repositories
 {
     public class EmployeeRepository
@@ -8,16 +9,16 @@ namespace ADONET.Repositories
         /// get closed SqlConnection object, need to open and close manually...
         /// </summary>
         /// <returns></returns>
-        public static SqlConnection GetConnection()
-        {
-            IConfigurationBuilder builder = new ConfigurationBuilder().AddJsonFile("appsettings.json", false, false);
-            IConfigurationRoot config = builder.Build();
-            string? CS = config.GetConnectionString("AppDb");
-            SqlConnection connection = new SqlConnection(CS);
+        //public static SqlConnection GetConnection()
+        //{
+        //    IConfigurationBuilder builder = new ConfigurationBuilder().AddJsonFile("appsettings.json", false, false);
+        //    IConfigurationRoot config = builder.Build();
+        //    string? CS = config.GetConnectionString("AppDb");
+        //    SqlConnection connection = new SqlConnection(CS);
 
-            return connection;
+        //    return connection;
 
-        }
+        //}
 
         /// <summary>
         /// returning all the employees...
@@ -26,7 +27,7 @@ namespace ADONET.Repositories
         public List<EmployeeDTO> GetAllEmployees()
         {
             List<EmployeeDTO> employees = new List<EmployeeDTO>();
-            SqlConnection connection = GetConnection();
+            SqlConnection connection = SqlHelper.GetConnection();
             string Query = "SELECT * FROM Employees";
             SqlCommand cmd = new SqlCommand(Query, connection);
             connection.Open();
@@ -55,7 +56,7 @@ namespace ADONET.Repositories
         /// <returns></returns>
         public int TotalEmployees()
         {
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = SqlHelper.GetConnection())
             {
 
                 string Query = "select count(EmployeeID) from Employees";
@@ -74,7 +75,7 @@ namespace ADONET.Repositories
         public string AddNewEmployee(EmployeeDTO employee)
         {
             string Message = "Something Went Wrong";
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = SqlHelper.GetConnection())
             {
                 string Query = $"INSERT INTO Employees(EmployeeId,FirstName,LastName,Age,Position,Department,HireDate,Salary) VALUES({employee.EmployeeId},'{employee.FirstName}','{employee.LastName}',{employee.Age},'{employee.Position}','{employee.Department}','{employee.HireDate.ToString("yyyy-MM-dd")}',{employee.Salary})";
                 SqlCommand cmd = new SqlCommand(Query, connection);
@@ -95,7 +96,7 @@ namespace ADONET.Repositories
         public string UpdateEmployee(int id, EmployeeDTO employee)
         {
             string Message = "Something Went Wrong";
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = SqlHelper.GetConnection())
             {
                 string Query = $"UPDATE Employees SET Age={employee.Age}, Position='{employee.Position}', Department='{employee.Department}' WHERE EmployeeID={id}";
                 SqlCommand cmd = new SqlCommand(Query, connection);
@@ -109,7 +110,7 @@ namespace ADONET.Repositories
 
         public string DeleteEmployee(int id)
         {
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = SqlHelper.GetConnection())
             {
                 string Message = "Something Went Wrong";
                 string Query = $"DELETE FROM Employees WHERE EmployeeID={id}";

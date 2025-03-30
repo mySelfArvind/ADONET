@@ -1,4 +1,5 @@
-﻿using ADONET.Services;
+﻿using ADONET.DTO;
+using ADONET.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,6 +30,12 @@ namespace ADONET.Controllers
         public IActionResult SearchProductWithNameUsingStoredProcedure([FromQuery] string productName)
         {
             return Ok(_productService.SearchProductWithNameUsingStoredProcedure(productName));
+        }
+
+        [HttpGet("GetAllProductsWithDiscountedPrice")]
+        public IActionResult GetAllProductsWithDiscountedPrice()
+        {
+            return Ok(_productService.GetAllProductsWithDiscountedPrice());
         }
     }
 }

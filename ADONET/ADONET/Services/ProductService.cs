@@ -25,5 +25,10 @@ namespace ADONET.Services
         {
             return _productRepository.SearchProductWithNameUsingStoredProcedure(productName);
         }
+
+        public List<ProductDTO> GetAllProductsWithDiscountedPrice()
+        {
+            return _productRepository.GetAllProductsWithDiscountedPrice();
+        }
     }
 }

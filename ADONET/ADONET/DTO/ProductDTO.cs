@@ -15,5 +15,6 @@
         public string? Storage { get; set; }
         public string? Processor { get; set; }
         public string? BatteryCapacity { get; set; }
+        public decimal? DiscountedPrice { get; set; }
     }
 }

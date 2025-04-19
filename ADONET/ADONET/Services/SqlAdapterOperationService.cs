@@ -30,5 +30,10 @@ namespace ADONET.Services
         {
             return _repository.GetAllAppUsersByIdProc(id);
         }
+
+        public EmployeesProductsDTO? GetEmployeesProducts()
+        {
+            return _repository.GetEmployeesProducts();
+        }
     }
 }

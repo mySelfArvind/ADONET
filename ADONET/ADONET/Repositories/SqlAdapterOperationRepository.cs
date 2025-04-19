@@ -89,7 +89,7 @@ namespace ADONET.Repositories
                 {
                     foreach (DataTable tables in ds.Tables)
                     {
-                        foreach(DataRow dr in tables.Rows)
+                        foreach (DataRow dr in tables.Rows)
                         {
                             users.Add(new AppUserDTO()
                             {
@@ -108,7 +108,7 @@ namespace ADONET.Repositories
         //4. Reading data using SqlAdapter stored procedure with parameter;
         public List<AppUserDTO>? GetAllAppUsersByIdProc(int id)
         {
-            List<AppUserDTO>? users = new() ;
+            List<AppUserDTO>? users = new();
             using (_connection)
             {
                 SqlDataAdapter da = new("GetAppUsersById", _connection);
@@ -135,6 +135,69 @@ namespace ADONET.Repositories
                 }
             }
             return users;
+        }
+
+        //5. returning 2 or more than two result set;
+        public EmployeesProductsDTO? GetEmployeesProducts()
+        {
+            EmployeesProductsDTO employees_products = new();
+            List<EmployeeDTO> employees = new();
+            List<ProductDTO> products = new();
+            using (_connection)
+            {
+                SqlDataAdapter da = new("USP_EmployeesProducts", _connection);
+                da.SelectCommand.CommandType = CommandType.StoredProcedure;
+                DataSet ds = new();
+                da.Fill(ds);
+                ds.Tables[0].TableName = "Employees";
+                ds.Tables[1].TableName = "Products";
+
+                foreach (DataTable tables in ds.Tables)
+                {
+                    if(tables.TableName == "Employees")
+                    {
+                        foreach(DataRow dr in tables.Rows)
+                        {
+                            employees?.Add(new EmployeeDTO()
+                            {
+                                EmployeeId = Convert.ToInt32(dr[0]),
+                                FirstName = Convert.ToString(dr[1]),
+                                LastName = Convert.ToString(dr[2]),
+                                Age = Convert.ToInt32(dr[3]),
+                                Position = Convert.ToString(dr[4]),
+                                Department = Convert.ToString(dr[5]),
+                                HireDate = Convert.ToDateTime(dr[6]),
+                                Salary = Convert.ToDecimal(dr[7])
+                            });
+                        }
+                    }
+                    else
+                    {
+                        foreach (DataRow dr in tables.Rows)
+                        {
+                            products?.Add(new ProductDTO()
+                            {
+                                ProductId = Convert.ToInt32(dr[0]),
+                                ProductName = Convert.ToString(dr[1]),
+                                Brand = Convert.ToString(dr[2]),
+                                Category = Convert.ToString(dr[3]),
+                                Price = Convert.ToDecimal((decimal)dr[4]),
+                                Description = Convert.ToString(dr[5]),
+                                StockQuantity = Convert.ToInt32(dr[6]),
+                                WarrantyPeriod = Convert.ToString(dr[7]),
+                                Color = Convert.ToString(dr[8]),
+                                ScreenSize = Convert.ToString(dr[9]),
+                                Storage = Convert.ToString(dr[10]),
+                                Processor = Convert.ToString(dr[11]),
+                                BatteryCapacity = Convert.ToString(dr[12])
+                            });
+                        }
+                    }
+                }
+            }
+            employees_products.Employees = employees;
+            employees_products.Products = products;
+            return employees_products;
         }
     }
 }

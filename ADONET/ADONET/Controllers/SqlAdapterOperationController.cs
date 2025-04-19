@@ -1,4 +1,5 @@
-﻿using ADONET.Services;
+﻿using ADONET.DTO;
+using ADONET.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -40,6 +41,13 @@ namespace ADONET.Controllers
         public IActionResult GetAllAppUsersByIdProc([FromRoute] int id)
         {
             return Ok(_service.GetAllAppUsersByIdProc(id));
+        }
+
+        [HttpGet]
+        [Route("EmployeesProducts")]
+        public IActionResult GetEmployeesProducts()
+        {
+            return Ok(_service.GetEmployeesProducts());
         }
     }
 }

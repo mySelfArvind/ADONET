@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Data>
+	<Customer CustomerId="1">
+		<Name>Arvind</Name>
+		<EmailId>arvind@gmail.com</EmailId>
+		<Address>Mumbai</Address>
+	</Customer>
+	<Customer CustomerId="2">
+		<Name>Neha</Name>
+		<EmailId>neha@gmail.com</EmailId>
+		<Address>Pune</Address>
+	</Customer>
+	<Customer CustomerId="3">
+		<Name>Rahul</Name>
+		<EmailId>rahul@yahoo.com</EmailId>
+		<Address>Delhi</Address>
+	</Customer>
+	<Customer CustomerId="4">
+		<Name>Priya</Name>
+		<EmailId>priya@hotmail.com</EmailId>
+		<Address>Bangalore</Address>
+	</Customer>
+	<Customer CustomerId="5">
+		<Name>Amit</Name>
+		<EmailId>amit@outlook.com</EmailId>
+		<Address>Hyderabad</Address>
+	</Customer>
+
+	<Order OrderId="1">
+		<Quantity>2</Quantity>
+		<Price>5667.46</Price>
+		<CustomerId>1</CustomerId>
+	</Order>
+	<Order OrderId="2">
+		<Quantity>1</Quantity>
+		<Price>2345.00</Price>
+		<CustomerId>2</CustomerId>
+	</Order>
+	<Order OrderId="3">
+		<Quantity>5</Quantity>
+		<Price>7800.99</Price>
+		<CustomerId>3</CustomerId>
+	</Order>
+	<Order OrderId="4">
+		<Quantity>3</Quantity>
+		<Price>4500.75</Price>
+		<CustomerId>4</CustomerId>
+	</Order>
+	<Order OrderId="5">
+		<Quantity>4</Quantity>
+		<Price>3200.50</Price>
+		<CustomerId>5</CustomerId>
+	</Order>
+</Data>

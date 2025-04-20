@@ -14,5 +14,10 @@ namespace ADONET.Services
         {
             return _repository.SqlBulkCopy();
         }
+
+        public string BulkCopyFromOneTableToAnother()
+        {
+            return _repository.BulkCopyFromOneTableToAnother();
+        }
     }
 }

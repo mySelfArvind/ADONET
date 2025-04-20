@@ -20,5 +20,12 @@ namespace ADONET.Controllers
         {
             return _service.SqlBulkCopy();
         }
+
+        [HttpGet]
+        [Route("CopyDataFromOneToAnother")]
+        public string BulkCopyFromOneTableToAnother()
+        {
+            return _service.BulkCopyFromOneTableToAnother();
+        }
     }
 }

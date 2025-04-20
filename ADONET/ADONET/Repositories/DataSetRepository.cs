@@ -43,5 +43,29 @@ namespace ADONET.Repositories
             }
             return string.Empty;
         }
+
+        public string BulkCopyFromOneTableToAnother()
+        {
+            string? SourceCS = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetConnectionString("SourceDb");
+            string? DestinationDb = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetConnectionString("DestinationDb");
+
+            using (SqlConnection SourceConn = new SqlConnection(SourceCS))
+            {
+                SqlCommand cmd = new SqlCommand("select * from Employees", SourceConn);
+                SourceConn.Open();
+                SqlDataReader rdr = cmd.ExecuteReader();
+
+                using(SqlConnection DestinationConn = new SqlConnection(DestinationDb))
+                {
+                    DestinationConn.Open();
+                    using(SqlBulkCopy bc = new SqlBulkCopy(DestinationConn))
+                    {
+                        bc.DestinationTableName = "Employees";
+                        bc.WriteToServer(rdr);
+                    }
+                }
+            }
+            return string.Empty;
+        }
     }
 }
